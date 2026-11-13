@@ -1,0 +1,7 @@
+{
+  "name": "Cinematic Editor Studio",
+  "description": "Professional Mobile Video Editing & AI Creative Studio. Multi-track timeline, audio studio, overlays, effects, color grading, AI masking, Blender 3D integration, and WebCodecs/Canvas video export.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
