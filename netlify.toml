@@ -1,0 +1,29 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/ai/*"
+  to = "/.netlify/functions/ai/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/download-standalone-html"
+  to = "/cinematic_studio_standalone.html"
+  status = 200
+
+[[redirects]]
+  from = "/api/standalone-html-text"
+  to = "/cinematic_studio_standalone.html"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/cinematic_studio_standalone.html"
+  [headers.values]
+    Content-Disposition = "attachment; filename=\"cinematic_studio_standalone.html\""

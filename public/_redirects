@@ -1,0 +1,4 @@
+/api/ai/*                      /.netlify/functions/ai/:splat  200
+/api/download-standalone-html  /cinematic_studio_standalone.html  200
+/api/standalone-html-text      /cinematic_studio_standalone.html  200
+/*                             /index.html                        200

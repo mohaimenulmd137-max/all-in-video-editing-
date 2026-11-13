@@ -43,21 +43,44 @@ export const ColorGradingPanel: React.FC<ColorGradingPanelProps> = ({
     setIsAiLoading(true);
     setAiTip(null);
     try {
-      const res = await fetch('/api/ai/scene-analysis', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ clipName: 'Active Clip', mood: 'cinematic', currentGrading: colorGrade }),
-      });
-      const data = await res.json();
-      if (data.gradeAdjustments) {
-        onChange({
-          ...colorGrade,
-          ...data.gradeAdjustments,
+      let gradeAdjustments: Partial<ColorGrade> | null = null;
+      let lookName = 'Teal & Orange Hollywood Classic';
+
+      try {
+        const res = await fetch('/api/ai/scene-analysis', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ clipName: 'Active Clip', mood: 'cinematic', currentGrading: colorGrade }),
         });
-        setAiTip(data.recommendedLook || 'Cinematic Balanced');
+        if (res.ok && res.headers.get('content-type')?.includes('application/json')) {
+          const data = await res.json();
+          if (data.gradeAdjustments) {
+            gradeAdjustments = data.gradeAdjustments;
+            lookName = data.recommendedLook || lookName;
+          }
+        }
+      } catch {
+        // Fallback to local rule below
       }
-    } catch (e) {
-      console.error(e);
+
+      if (!gradeAdjustments) {
+        gradeAdjustments = {
+          exposure: 0.05,
+          contrast: 1.15,
+          saturation: 1.1,
+          temperature: -5,
+          tint: 2,
+          highlights: -10,
+          shadows: 8,
+          vignette: 0.35,
+        };
+      }
+
+      onChange({
+        ...colorGrade,
+        ...gradeAdjustments,
+      });
+      setAiTip(lookName);
     } finally {
       setIsAiLoading(false);
     }

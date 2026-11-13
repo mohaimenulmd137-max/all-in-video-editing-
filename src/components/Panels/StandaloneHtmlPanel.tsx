@@ -195,12 +195,12 @@ export const StandaloneHtmlPanel: React.FC = () => {
         )}
 
         <a
-          href="/api/download-standalone-html"
+          href="/cinematic_studio_standalone.html"
           download="cinematic_studio_standalone.html"
           className="flex-1 py-2 px-3 rounded-xl bg-[#111827] hover:bg-slate-800 border border-slate-800 text-slate-300 font-medium text-xs flex items-center justify-center gap-1.5"
         >
           <Download className="w-3.5 h-3.5 text-[#00CFFF]" />
-          <span>Direct Server Download</span>
+          <span>Direct File Link</span>
         </a>
       </div>
 
